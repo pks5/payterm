@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/xterm@4.12.0/css/xterm.min.css">
+
+    <title>Payterm - Raspilab Experiments</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+      
+    </style>
+  </head>
+  <body>
+        <div>
+            <input id="scanner-input" class="input-lg">
+        </div>
+        <div>
+            <img id="product-image">
+        </div>
+        <script>
+            const PREFIX = "$#",
+                SUFFIX = "@";
+
+            const mProducts = {
+                "4029764001821":{
+                    name: "Club-Mate",
+                    image: "4029764001821.jpg"
+                },
+                "4025127020027":{
+                    name: "effect",
+                    image: "4025127020027.png"
+                }
+            };
+
+            document.getElementById("scanner-input").addEventListener("change", function(){
+                let sCode = this.value;
+                if(sCode.indexOf(PREFIX) === 0 && sCode.indexOf(SUFFIX) === sCode.length-1){
+                    sCode = sCode.substring(PREFIX.length, sCode.length-1);
+
+                    let oProduct = mProducts[sCode];
+
+                    if(oProduct){
+                        console.log(oProduct.name);
+
+                        document.getElementById("product-image").src = "./img/" + oProduct.image;
+                    }
+                }
+                this.value = '';
+            });
+
+            setInterval(function(){
+                document.getElementById("scanner-input").focus();
+            }, 1000);
+        </script>
+  </body>
+</html>
